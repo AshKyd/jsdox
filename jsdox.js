@@ -144,8 +144,12 @@ function analyze(ast) {
         var fn = tag;
         fn.params       = tag.params || [];
         fn.hasParams    = !!fn.params.length;
-        // For the function signature
-        fn.paramsString = fn.params.map(function(p) {
+
+        // For the function signature.
+        fn.paramsString = fn.params.filter(function(p){
+          // filter out obj.property entries
+          return p.name.indexOf('.') == -1;
+        }).map(function(p) {
           return p.name;
         }).join(', ');
 
